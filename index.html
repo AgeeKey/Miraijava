@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未来 Mirai AI - Твоя цифровая сестра</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Exo+2:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <span class="logo-kanji">未来</span>
+                <span class="logo-text">Мирай</span>
+            </div>
+            <p class="slogan">Твоя цифровая сестра</p>
+        </div>
+        
+        <nav class="header-nav">
+            <a href="#dashboard" class="nav-link active" data-section="dashboard">Дашборд</a>
+            <a href="#stats" class="nav-link" data-section="stats">Статистика</a>
+            <a href="#tasks" class="nav-link" data-section="tasks">Задачи</a>
+            <a href="#tools" class="nav-link" data-section="tools">Инструменты</a>
+            <a href="#settings" class="nav-link" data-section="settings">Настройки</a>
+        </nav>
+        
+        <div class="header-right">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <div class="ai-status">
+                <div class="status-indicator active"></div>
+                <span class="status-text">AI Активен</span>
+            </div>
+            <div class="profile">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%236e56cf'/%3E%3Ctext x='20' y='26' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E" alt="User Avatar" class="profile-avatar">
+                <span class="profile-name">Пользователь</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="character-photo">
+                    <div class="character-placeholder">
+                        <span class="character-text">未来</span>
+                    </div>
+                </div>
+                <div class="agent-status">Активен: <span id="uptime">0д 0ч 12м</span></div>
+                <div class="motivation-quote">"Свет ведёт вперёд"</div>
+            </div>
+            
+            <div class="sidebar-actions">
+                <h3>Быстрые действия</h3>
+                <button class="action-btn primary">▶️ Новая задача</button>
+                <button class="action-btn">🔄 Обновить статус</button>
+                <button class="action-btn">📊 Аналитика</button>
+                <button class="action-btn" data-section="chat">💬 Чат с Мирай</button>
+                <button class="action-btn">🌐 Поиск в интернете</button>
+            </div>
+            
+            <div class="sidebar-stats">
+                <h3>Статистика</h3>
+                <div class="stat-item">
+                    <span class="stat-icon">🧠</span>
+                    <span class="stat-label">Токенов:</span>
+                    <span class="stat-value" id="tokensUsed">12,450</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">📈</span>
+                    <span class="stat-label">Задач:</span>
+                    <span class="stat-value" id="tasksCompleted">127</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🕒</span>
+                    <span class="stat-label">Активна:</span>
+                    <span class="stat-value" id="activeTime">18ч 24м</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">💾</span>
+                    <span class="stat-label">Память:</span>
+                    <span class="stat-value" id="memoryUsage">256 МБ</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="welcome-section">
+                    <h1 class="welcome-title">Привет, <span id="userName">Пользователь</span></h1>
+                    <p class="welcome-message">Сегодня я <span class="mood">в отличном настроении</span>. Чем займемся?</p>
+                    <div class="datetime">
+                        <span id="currentDate">8 октября 2024</span> • <span id="currentTime">12:34</span>
+                    </div>
+                </div>
+
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>Агент Mirai</h3>
+                            <div class="status-indicator active"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="stat-large">Активен</p>
+                            <p class="stat-small">Время работы: 12 дней 8 часов</p>
+                            <div class="mini-chart">
+                                <canvas id="agentChart" width="200" height="60"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>AI Движок</h3>
+                            <div class="status-indicator active"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="stat-large">GPT-4</p>
+                            <p class="stat-small">Токенов сегодня: 2,340</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 23.4%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>Трейдинг</h3>
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="stat-large">Неактивен</p>
+                            <p class="stat-small">Последняя активность: 2ч назад</p>
+                            <p class="stat-highlight success">+2.4%</p>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>API Сервер</h3>
+                            <div class="status-indicator active"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="stat-large">Онлайн</p>
+                            <p class="stat-small">localhost:8000</p>
+                            <p class="stat-small">Запросов: 1,234</p>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>Telegram</h3>
+                            <div class="status-indicator active"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="stat-large">Подключен</p>
+                            <p class="stat-small">Последнее: 5м назад</p>
+                            <p class="stat-small">Непрочитанных: 3</p>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>Память</h3>
+                            <div class="status-indicator active"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="stat-large">2,456 записей</p>
+                            <p class="stat-small">Размер: 256 МБ</p>
+                            <div class="mini-chart">
+                                <canvas id="memoryChart" width="200" height="60"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>Система</h3>
+                            <div class="status-indicator active"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="stat-small">CPU: 34% • RAM: 56%</p>
+                            <p class="stat-small">Диск: 42% • 45°C</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 56%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="card-header">
+                            <h3>Обучение</h3>
+                            <div class="status-indicator active"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="stat-large">42 сессии</p>
+                            <p class="stat-small">Тема: Квантовые вычисления</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 68%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Tasks Section -->
+                <div class="tasks-section">
+                    <div class="section-header">
+                        <h2>Текущие задачи</h2>
+                        <button class="btn-primary">+ Добавить</button>
+                    </div>
+                    
+                    <div class="tasks-filters">
+                        <button class="filter-btn active">Все</button>
+                        <button class="filter-btn">Активные</button>
+                        <button class="filter-btn">Завершенные</button>
+                        <button class="filter-btn">Ожидание</button>
+                    </div>
+
+                    <div class="tasks-table">
+                        <div class="task-row">
+                            <div class="task-priority high">1</div>
+                            <div class="task-name">Анализ рынка криптовалют</div>
+                            <div class="task-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                                <span>75%</span>
+                            </div>
+                            <div class="task-time">10:23</div>
+                            <div class="task-status status-active">Активна</div>
+                            <div class="task-actions">
+                                <button class="task-btn" title="Пауза">⏸</button>
+                                <button class="task-btn" title="Отмена">✕</button>
+                                <button class="task-btn" title="Детали">ℹ</button>
+                            </div>
+                        </div>
+                        <div class="task-row">
+                            <div class="task-priority medium">2</div>
+                            <div class="task-name">Обработка данных пользователя</div>
+                            <div class="task-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 45%"></div>
+                                </div>
+                                <span>45%</span>
+                            </div>
+                            <div class="task-time">09:15</div>
+                            <div class="task-status status-active">Активна</div>
+                            <div class="task-actions">
+                                <button class="task-btn" title="Пауза">⏸</button>
+                                <button class="task-btn" title="Отмена">✕</button>
+                                <button class="task-btn" title="Детали">ℹ</button>
+                            </div>
+                        </div>
+                        <div class="task-row">
+                            <div class="task-priority low">3</div>
+                            <div class="task-name">Резервное копирование</div>
+                            <div class="task-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill success" style="width: 100%"></div>
+                                </div>
+                                <span>100%</span>
+                            </div>
+                            <div class="task-time">08:00</div>
+                            <div class="task-status status-completed">Завершена</div>
+                            <div class="task-actions">
+                                <button class="task-btn" title="Детали">ℹ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logs Section -->
+                <div class="logs-section">
+                    <div class="section-header">
+                        <h2>Система журналирования</h2>
+                        <div class="logs-controls">
+                            <button class="filter-btn active">Все</button>
+                            <button class="filter-btn">INFO</button>
+                            <button class="filter-btn">WARNING</button>
+                            <button class="filter-btn">ERROR</button>
+                        </div>
+                    </div>
+                    
+                    <div class="logs-container">
+                        <div class="log-entry info">
+                            <span class="log-time">12:34:56</span>
+                            <span class="log-module">AI.Engine</span>
+                            <span class="log-message">Модель GPT-4 успешно инициализирована</span>
+                        </div>
+                        <div class="log-entry info">
+                            <span class="log-time">12:34:42</span>
+                            <span class="log-module">Trading.Bot</span>
+                            <span class="log-message">Получены данные о рынке BTC/USD</span>
+                        </div>
+                        <div class="log-entry warning">
+                            <span class="log-time">12:33:15</span>
+                            <span class="log-module">System</span>
+                            <span class="log-message">Использование CPU превысило 80%</span>
+                        </div>
+                        <div class="log-entry info">
+                            <span class="log-time">12:32:01</span>
+                            <span class="log-module">API.Server</span>
+                            <span class="log-message">Новый запрос от клиента 192.168.1.100</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section id="stats" class="section">
+                <div class="section-header">
+                    <h2>Аналитика</h2>
+                    <div class="time-periods">
+                        <button class="period-btn">День</button>
+                        <button class="period-btn active">Неделя</button>
+                        <button class="period-btn">Месяц</button>
+                        <button class="period-btn">Год</button>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Активность AI</h3>
+                        <canvas id="aiActivityChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Выполнение задач</h3>
+                        <canvas id="tasksChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Трейдинг</h3>
+                        <canvas id="tradingChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Системный мониторинг</h3>
+                        <canvas id="systemChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+
+                <div class="kpi-section">
+                    <h2>KPI</h2>
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <span class="kpi-icon">🎯</span>
+                            <span class="kpi-label">Успешность задач</span>
+                            <span class="kpi-value">94.2%</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-icon">⚡</span>
+                            <span class="kpi-label">Средний отклик</span>
+                            <span class="kpi-value">125 мс</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-icon">🧠</span>
+                            <span class="kpi-label">Точность решений</span>
+                            <span class="kpi-value">97.8%</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-icon">💰</span>
+                            <span class="kpi-label">ROI трейдинга</span>
+                            <span class="kpi-value">+12.4%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks Section -->
+            <section id="tasks" class="section">
+                <div class="section-header">
+                    <h2>Управление задачами</h2>
+                    <button class="btn-primary">+ Создать задачу</button>
+                </div>
+                <p class="section-description">Детальное управление всеми задачами системы</p>
+                <!-- More task management content would go here -->
+            </section>
+
+            <!-- Tools Section -->
+            <section id="tools" class="section">
+                <div class="section-header">
+                    <h2>Инструменты</h2>
+                </div>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h3>AI Playground</h3>
+                        <p>Экспериментируйте с различными параметрами AI</p>
+                        <button class="btn-secondary">Открыть</button>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Визуализация связей</h3>
+                        <p>Граф знаний и концепций в памяти AI</p>
+                        <button class="btn-secondary">Открыть</button>
+                    </div>
+                    <div class="tool-card">
+                        <h3>Мониторинг трейдинга</h3>
+                        <p>Анализ рынка и стратегий</p>
+                        <button class="btn-secondary">Открыть</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Section -->
+            <section id="chat" class="section">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2>Общение с Мирай</h2>
+                        <div class="status-indicator active"></div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message mirai">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23a361ff'/%3E%3Ctext x='20' y='26' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3E未%3C/text%3E%3C/svg%3E" alt="Mirai" class="message-avatar">
+                            <div class="message-content">
+                                <div class="message-text">Привет! Я Мирай, твоя цифровая сестра. Как дела?</div>
+                                <div class="message-time">12:30</div>
+                            </div>
+                        </div>
+                        <div class="message user">
+                            <div class="message-content">
+                                <div class="message-text">Привет, Мирай! Покажи статистику за сегодня</div>
+                                <div class="message-time">12:31</div>
+                            </div>
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%236e56cf'/%3E%3Ctext x='20' y='26' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E" alt="User" class="message-avatar">
+                        </div>
+                        <div class="message mirai">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23a361ff'/%3E%3Ctext x='20' y='26' font-family='Arial' font-size='18' fill='white' text-anchor='middle'%3E未%3C/text%3E%3C/svg%3E" alt="Mirai" class="message-avatar">
+                            <div class="message-content">
+                                <div class="message-text">Сегодня было обработано 2,340 токенов, выполнено 15 задач, и система работает стабильно с загрузкой CPU 34%.</div>
+                                <div class="message-time">12:31</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <textarea class="chat-input" placeholder="Напишите сообщение..." rows="1"></textarea>
+                        <div class="chat-actions">
+                            <button class="chat-action-btn" title="Прикрепить файл">📎</button>
+                            <button class="chat-action-btn" title="Код">💻</button>
+                            <button class="chat-action-btn" title="Эмодзи">😊</button>
+                            <button class="chat-action-btn" title="Голосовой ввод">🎤</button>
+                            <button class="btn-primary chat-send">Отправить</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="section">
+                <div class="section-header">
+                    <h2>Конфигурация</h2>
+                    <button class="btn-primary">Сохранить</button>
+                </div>
+
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="general">Основные</button>
+                    <button class="settings-tab" data-tab="interface">Интерфейс</button>
+                    <button class="settings-tab" data-tab="notifications">Уведомления</button>
+                    <button class="settings-tab" data-tab="performance">Производительность</button>
+                    <button class="settings-tab" data-tab="backup">Резервное копирование</button>
+                </div>
+
+                <div class="settings-content">
+                    <div class="settings-panel active" id="general">
+                        <div class="setting-group">
+                            <label class="setting-label">API Ключ OpenAI</label>
+                            <input type="password" class="setting-input" value="sk-••••••••••••••••••••••••••••••••">
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label">Языковая модель</label>
+                            <select class="setting-select">
+                                <option value="gpt-4">GPT-4</option>
+                                <option value="gpt-3.5">GPT-3.5 Turbo</option>
+                                <option value="claude">Claude</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label">Временная зона</label>
+                            <select class="setting-select">
+                                <option value="utc+3">UTC+3 (Москва)</option>
+                                <option value="utc">UTC</option>
+                                <option value="utc+1">UTC+1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="interface">
+                        <div class="setting-group">
+                            <label class="setting-label">Тема</label>
+                            <div class="setting-radio-group">
+                                <label><input type="radio" name="theme" value="dark" checked> Темная</label>
+                                <label><input type="radio" name="theme" value="light"> Светлая</label>
+                                <label><input type="radio" name="theme" value="system"> Системная</label>
+                            </div>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label">Цветовая схема</label>
+                            <div class="color-schemes">
+                                <div class="color-scheme active" data-scheme="purple"></div>
+                                <div class="color-scheme" data-scheme="blue"></div>
+                                <div class="color-scheme" data-scheme="green"></div>
+                                <div class="color-scheme" data-scheme="orange"></div>
+                                <div class="color-scheme" data-scheme="pink"></div>
+                            </div>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-label">Размер шрифта</label>
+                            <input type="range" min="12" max="20" value="16" class="setting-range">
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="notifications">
+                        <div class="setting-group">
+                            <label class="setting-toggle">
+                                <input type="checkbox" checked>
+                                <span>Уведомления в Telegram</span>
+                            </label>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-toggle">
+                                <input type="checkbox">
+                                <span>Email уведомления</span>
+                            </label>
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-toggle">
+                                <input type="checkbox" checked>
+                                <span>Push-уведомления</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="performance">
+                        <div class="setting-group">
+                            <label class="setting-label">Лимит токенов в день</label>
+                            <input type="number" class="setting-input" value="10000">
+                        </div>
+                        <div class="setting-group">
+                            <label class="setting-toggle">
+                                <input type="checkbox">
+                                <span>Режим энергосбережения</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="backup">
+                        <div class="setting-group">
+                            <label class="setting-label">Расписание бэкапов</label>
+                            <select class="setting-select">
+                                <option value="daily">Ежедневно</option>
+                                <option value="weekly">Еженедельно</option>
+                                <option value="monthly">Ежемесячно</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <button class="btn-secondary">Создать бэкап сейчас</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
